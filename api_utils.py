@@ -3,9 +3,6 @@ import os
 from openai import OpenAI
 
 
-api_key = os.environ.get('openai_api_key')
-
-
 def create_table_definiton_for_gpt(df, table_name):
     prompt = f"""### sqlite table definition
     #
@@ -25,6 +22,7 @@ def combine_prompts(fixed_prompt, user_query):
     return fixed_prompt + final_user_input
 
 def send_to_openai(prompt):
+    api_key = os.environ.get('openai_api_key')
     response = OpenAI(api_key=api_key).complete(
         model="davinci",
         prompt=prompt,
